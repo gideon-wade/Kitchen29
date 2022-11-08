@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+{% block title %}Half annually payment{% endblock %}
+{% block content %}
+<title>Half-annually payment</title>
+<div>
+    <h1 style="text-align:center;margin-top:60px">Half-annually payment</h1>
+    <h5 style="text-align:center;margin:40px">Who needs to pay and by how much</h5>
+
+    <div class="grid" style="grid-column-start: 2;grid-column-end: 4;" >
+        <div class="row" >
+            <div class="col-lg" style ="font-size:25px;text-align:center">
+                Name
+            </div>
+            <div class="col-lg" style ="font-size:25px;text-align:center">
+                Resident number
+            </div>
+            <div class="col-lg" style ="font-size:25px;text-align:center">
+                Total (dkk)
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-lg col-lg-elem" style="text-align:center">
+                Bobby
+            </div>
+            <div class="col-lg" style="text-align:center">
+                2901
+            </div>
+            <div class="col-lg" style="text-align:center">
+                0
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-lg" style="text-align:center">
+                Oliver
+            </div>
+            <div class="col-lg" style="text-align:center">
+                2902
+            </div>
+            <div class="col-lg" style="text-align:center">
+                -2000
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-lg" style="text-align:center">
+                Gideon
+            </div>
+            <div class="col-lg" style="text-align:center">
+                2903
+            </div>
+            <div class="col-lg" style="text-align:center">
+                0
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

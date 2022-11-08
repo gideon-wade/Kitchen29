@@ -1,0 +1,12 @@
+col-lg-header {
+    font-size:25px;
+    text-align:center;
+
+}
+#col-lg {
+    text-align:center;
+    color: hotpink;
+}
+.navbar,.navbar-brand,.nav-item, .nav-link, li:hover {
+    background-color: #87CEEB;
+}
