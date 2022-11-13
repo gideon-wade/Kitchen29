@@ -50,6 +50,11 @@ def update_receipts(Amount, Resident, Receipt_picture):
     return render_template("receipts.html")
 
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
 @app.route("/<resident>")
 def choose_resident(resident):
     return render_template(f"Residents/{resident}.html")
