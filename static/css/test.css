@@ -12,7 +12,7 @@ body {
     background-color: #EAEAEA;
 }
 #login .container #login-row #login-column #login-box #login-form {
-    padding: 20px;
+    padding: 25px;
 }
 #login .container #login-row #login-column #login-box #login-form #register-link {
     margin-top: -85px;
@@ -22,14 +22,18 @@ body {
 col-lg-header {
     font-size:25px;
     text-align:center;
-
 }
 #col-lg {
     text-align:center;
     color: hotpink;
 }
-.navbar,.navbar-brand,.nav-item, .nav-link, li:hover {
-    background-color: #87CEEB;
+
+ li:hover {
+    background-color: #25569b;
+    border-radius: 10px;
 }
 
+my-2 {
+
+}
 

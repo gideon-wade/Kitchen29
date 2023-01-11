@@ -31,7 +31,7 @@
         </div>
         <div class="row" >
             <div class="col-lg" style="text-align:center">
-                Oliver
+                Mikkel
             </div>
             <div class="col-lg" style="text-align:center">
                 2902
@@ -40,6 +40,12 @@
                 -2000
             </div>
         </div>
+        {% for item in data %}
+            <tr>
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
+            </tr>
+        {% endfor %}
         <div class="row" >
             <div class="col-lg" style="text-align:center">
                 Gideon
@@ -52,6 +58,5 @@
             </div>
         </div>
     </div>
-
 </div>
 {% endblock %}
