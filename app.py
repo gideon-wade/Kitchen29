@@ -2,6 +2,9 @@ import sys
 
 from flask import Flask, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine, engine
+from sqlalchemy_utils import database_exists, create_database
+
 from datetime import datetime
 
 app = Flask(__name__)
@@ -11,20 +14,27 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Gideon/PycharmProjec
 db = SQLAlchemy(app)
 
 
-# Create db model
-class Kitchen29(db.Model):
+# Object of the current state of half_annually_payment
+class Residents(db.Model):
     Resident_Number = db.Column(db.Integer, primary_key=True)
-    Resident_Name = db.Column(db.String(50), nullable=False)
-    Date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    Resident_First_Name = db.Column(db.VARCHAR(50), unique=False, nullable=False)
+    Resident_Last_Name = db.Column(db.VARCHAR(50), unique=False, nullable=False)
+    Balance = db.Column(db.Numeric(5, 2), unique=False, nullable=False)
 
-    # Create a function to return a string
     def __repr__(self):
-        return '<Name %r>' % self.Resident_Number
+        return '<Resident %r>' % self.Resident_First_Name
+
+
+# No idea why, but with this "with" shit create_all() works. I'll take it.
+with app.app_context():
+    print("Creating Database")
+    db.create_all()
 
 
 @app.route('/')
 def home():  # put application's code here
-    return render_template("index.html")
+    residents = Residents.query.all()
+    return render_template("index.html", residents=residents)
 
 
 @app.route("/add_receipt", methods=["POST", "GET"])
@@ -34,9 +44,10 @@ def add_receipt():
             amount = request.form["amount"]
             resident = request.form["resident"]
             receipt_picture = request.form["receipt_picture"]
-            return redirect(url_for("update_receipts", Amount=amount, Resident=resident, Receipt_picture=receipt_picture))
+            return redirect(
+                url_for("update_receipts", Amount=amount, Resident=resident, Receipt_picture=receipt_picture))
         except:
-            print("hello")
+            print("POST FAILED")
 
     else:
         return render_template("add_receipt.html")
@@ -44,7 +55,8 @@ def add_receipt():
 
 @app.route("/half_annually_payment")
 def half_annually_payment():
-    return render_template("half_annually_payment.html")
+    residents = Residents.query.all()
+    return render_template("half_annually_payment.html", residents=residents)
 
 
 @app.route("/receipts")

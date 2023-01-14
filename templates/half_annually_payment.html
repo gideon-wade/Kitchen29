@@ -3,60 +3,43 @@
 {% block content %}
 <title>Half-annually payment</title>
 <div>
-    <h1 style="text-align:center;margin-top:60px">Half-annually payment</h1>
+
+
+    <h1 class="title" style="text-align:center;margin-top:60px">Half-annually payment</h1>
     <h5 style="text-align:center;margin:40px">Who needs to pay and by how much</h5>
 
     <div class="grid" style="grid-column-start: 2;grid-column-end: 4;" >
         <div class="row" >
-            <div class="col-lg" style ="font-size:25px;text-align:center">
+            <div class="col-lg col-lg-header">
                 Name
             </div>
-            <div class="col-lg" style ="font-size:25px;text-align:center">
+            <div class="col-lg col-lg-header">
                 Resident number
             </div>
-            <div class="col-lg" style ="font-size:25px;text-align:center">
-                Total (dkk)
+            <div class="col-lg col-lg-header">
+                Total (DKK)
             </div>
         </div>
-        <div class="row" >
-            <div class="col-lg col-lg-elem" style="text-align:center">
-                Bobby
+
+        {% for resident in residents %}
+            <div id="{{ residents.Resident_First_Name }}">
+                <div class="row">
+                    <div class="col-lg col-lg-list-item">
+                       {{ resident.Resident_First_Name }}
+                    </div>
+                    <div class="col-lg">
+                        {{ resident.Resident_Number }}
+                    </div>
+                    <div class="col-lg" id="{{ resident.Resident_Number }}balance">
+                        {{ resident.Balance}}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg" style="text-align:center">
-                2901
-            </div>
-            <div class="col-lg" style="text-align:center">
-                0
-            </div>
-        </div>
-        <div class="row" >
-            <div class="col-lg" style="text-align:center">
-                Mikkel
-            </div>
-            <div class="col-lg" style="text-align:center">
-                2902
-            </div>
-            <div class="col-lg" style="text-align:center">
-                -2000
-            </div>
-        </div>
-        {% for item in data %}
-            <tr>
-                <td>{{item[0]}}</td>
-                <td>{{item[1]}}</td>
-            </tr>
         {% endfor %}
-        <div class="row" >
-            <div class="col-lg" style="text-align:center">
-                Gideon
-            </div>
-            <div class="col-lg" style="text-align:center">
-                2903
-            </div>
-            <div class="col-lg" style="text-align:center">
-                0
-            </div>
-        </div>
+
     </div>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='javascript/half_annually_payment.js')}}"
+    ></script>
 </div>
 {% endblock %}
