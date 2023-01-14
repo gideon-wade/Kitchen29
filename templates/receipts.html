@@ -4,5 +4,27 @@
 <title>Receipts</title>
 <div>
     <h1 style="text-align:center;margin:60px">List of receipts</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Receipt's Resident Number</th>
+                <th>Amount</th>
+                <th>Date Uploaded</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for receipt in receipts %}
+                <tr>
+                    <td>{{ receipt.Receipts_Resident_Number }}</td>
+                    <td>{{ receipt.Amount }}</td>
+                    <td>{{ receipt.Date_Uploaded }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 </div>
 {% endblock %}

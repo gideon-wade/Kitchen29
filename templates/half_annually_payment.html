@@ -8,36 +8,28 @@
     <h1 class="title" style="text-align:center;margin-top:60px">Half-annually payment</h1>
     <h5 style="text-align:center;margin:40px">Who needs to pay and by how much</h5>
 
-    <div class="grid" style="grid-column-start: 2;grid-column-end: 4;" >
-        <div class="row" >
-            <div class="col-lg col-lg-header">
-                Name
-            </div>
-            <div class="col-lg col-lg-header">
-                Resident number
-            </div>
-            <div class="col-lg col-lg-header">
-                Total (DKK)
-            </div>
-        </div>
-
-        {% for resident in residents %}
-            <div id="{{ residents.Resident_First_Name }}">
-                <div class="row">
-                    <div class="col-lg col-lg-list-item">
-                       {{ resident.Resident_First_Name }}
-                    </div>
-                    <div class="col-lg">
-                        {{ resident.Resident_Number }}
-                    </div>
-                    <div class="col-lg" id="{{ resident.Resident_Number }}balance">
-                        {{ resident.Balance}}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Resident number</th>
+                <th>Total (DKK)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for resident in residents %}
+                <tr>
+                    <td>{{ resident.Resident_First_Name }}</td>
+                    <td>{{ resident.Resident_Number }}</td>
+                    <td id="{{ resident.Resident_Number }}balance">{{ resident.Balance }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
+
+
     <script type="text/javascript"
             src="{{ url_for('static', filename='javascript/half_annually_payment.js')}}"
     ></script>

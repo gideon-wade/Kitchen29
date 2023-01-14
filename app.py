@@ -22,7 +22,17 @@ class Residents(db.Model):
     Balance = db.Column(db.Numeric(5, 2), unique=False, nullable=False)
 
     def __repr__(self):
-        return '<Resident %r>' % self.Resident_First_Name
+        return '<Resident %r>' % self.Resident_First_Number
+
+
+class Receipts(db.Model):
+    Receipt_ID = db.Column(db.Integer, primary_key=True)
+    Receipts_Resident_Number = db.Column(db.Integer, unique=True, nullable=False)
+    Amount = db.Column(db.Numeric(5, 2), unique=False, nullable=False)
+    Date_Uploaded = db.Column(db.Date, unique=False, nullable=False)
+
+    def __repr__(self):
+        return '<Receipt %r>' % self.Receipt_ID
 
 
 # No idea why, but with this "with" shit create_all() works. I'll take it.
@@ -39,18 +49,23 @@ def home():  # put application's code here
 
 @app.route("/add_receipt", methods=["POST", "GET"])
 def add_receipt():
+    residents = Residents.query.all()
     if request.method == "POST":
+        amount = request.form["amount"]
+        resident = request.form["resident"]
+        receipt_picture = request.form["receipt_picture"]
         try:
-            amount = request.form["amount"]
-            resident = request.form["resident"]
-            receipt_picture = request.form["receipt_picture"]
-            return redirect(
-                url_for("update_receipts", Amount=amount, Resident=resident, Receipt_picture=receipt_picture))
+            if amount is not None and resident is not None and receipt_picture is not None:
+                return redirect(
+                    url_for("update_receipts",
+                            amount=amount,
+                            resident=resident,
+                            receipt_picture=receipt_picture))
         except:
             print("POST FAILED")
 
     else:
-        return render_template("add_receipt.html")
+        return render_template("add_receipt.html", residents=residents)
 
 
 @app.route("/half_annually_payment")
@@ -61,38 +76,18 @@ def half_annually_payment():
 
 @app.route("/receipts")
 def receipts():
-    import pymysql
-    import re
-    host = 'localhost'
-    user = 'root'
-    password = ''
-    try:
-        connection = pymysql.connect(host=host, user=user, password=password, db=db, use_unicode=True, charset='utf-8')
-        print('+=========================+')
-        print('|  CONNECTED TO DATABASE  |')
-        print('+=========================+')
-    except Exception as e:
-        sys.exit('error', e)
-
-    cur = connection.curser()
-    cur.execute("SELECT * FROM dataset")
-    data = cur.fetchall()
-    for row in data:
-        id_berita = row[0]
-        judul = row[1]
-        isi = row[2]
-        print('===============================================')
-        print('BERITA KE', id_berita)
-        print('Judul :', judul)
-        print('Isi   :', isi)
-        print('===============================================')
-
-    return render_template("receipts.html", db=db)
+    # A lit more complicated, but it basically does the
+    # same but orders it with newest date first
+    receipts = Receipts.query.order_by(Receipts.Date_Uploaded.desc()).all()
+    return render_template("receipts.html", receipts=receipts)
 
 
 @app.route("/receipts")
-def update_receipts(Amount, Resident, Receipt_picture):
-    return render_template("receipts.html")
+def update_receipts(amount, resident, receipt_picture):
+    return render_template("receipts.html",
+                           amount=amount,
+                           resident=resident,
+                           receipt_picture=receipt_picture)
 
 
 @app.route("/login")

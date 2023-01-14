@@ -12,23 +12,11 @@
         <div class="form-group">
             <label for="exampleFormControlSelect1">Resident</label>
             <select name="resident" class="form-control" id="exampleFormControlSelect1">
-                <option>2901</option>
-                <option>2902</option>
-                <option>2903</option>
-                <option>2904</option>
-                <option>2905</option>
-                <option>2906</option>
-                <option>2907</option>
-                <option>2908</option>
-                <option>2909</option>
-                <option>2910</option>
-                <option>2911</option>
-                <option>2912</option>
-                <option>2913</option>
-                <option>2914</option>
-                <option>2915</option>
-                <option>2916</option>
-                <option>2917</option>
+
+                {% for resident in residents %}
+                <option>{{ resident.Resident_Number }}</option>
+                {% endfor %}
+
             </select>
         </div>
         <div class="form-group">
