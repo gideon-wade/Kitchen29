@@ -30,6 +30,7 @@ class Receipts(db.Model):
     Receipts_Resident_Number = db.Column(db.Integer, unique=True, nullable=False)
     Amount = db.Column(db.Numeric(5, 2), unique=False, nullable=False)
     Date_Uploaded = db.Column(db.Date, unique=False, nullable=False)
+    Approved = db.Column(db.Boolean, unique=False, nullable=False)
 
     def __repr__(self):
         return '<Receipt %r>' % self.Receipt_ID
@@ -55,7 +56,12 @@ def add_receipt():
         resident = request.form["resident"]
         receipt_picture = request.form["receipt_picture"]
         try:
-            if amount is not None and resident is not None and receipt_picture is not None:
+            if amount is not "" and resident is not "" and receipt_picture is not "":
+                print("We're in if*2 --------------------")
+                print("amount: " + amount)
+                print("resident: " + resident)
+                print("receipt_picture: " + receipt_picture)
+                print("We're in if*2 --------------------")
                 return redirect(
                     url_for("update_receipts",
                             amount=amount,
@@ -63,7 +69,6 @@ def add_receipt():
                             receipt_picture=receipt_picture))
         except:
             print("POST FAILED")
-
     else:
         return render_template("add_receipt.html", residents=residents)
 

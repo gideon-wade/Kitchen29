@@ -12,6 +12,7 @@
                 <th>Receipt's Resident Number</th>
                 <th>Amount</th>
                 <th>Date Uploaded</th>
+                <th>Approved</th>
             </tr>
             </thead>
             <tbody>
@@ -20,11 +21,16 @@
                     <td>{{ receipt.Receipts_Resident_Number }}</td>
                     <td>{{ receipt.Amount }}</td>
                     <td>{{ receipt.Date_Uploaded }}</td>
+                    <td><input type="checkbox" id="ID{{ receipt.Receipt_ID }}"{% if receipt.Approved %} checked {% endif %} disabled></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
+
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='javascript/receipts.js')}}"
+    ></script>
 
 </div>
 {% endblock %}
