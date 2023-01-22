@@ -21,7 +21,11 @@
                     <td>{{ receipt.Receipts_Resident_Number }}</td>
                     <td>{{ receipt.Amount }}</td>
                     <td>{{ receipt.Date_Uploaded }}</td>
-                    <td><input type="checkbox" id="ID{{ receipt.Receipt_ID }}"{% if receipt.Approved %} checked {% endif %} disabled></td>
+                    <label>
+                        <td class="receipt-label">
+                            <input type="checkbox"  id="RECEIPTID{{ loop.index }}"{% if receipt.Approved %} checked {% endif %} disabled>
+                        </td>
+                    </label>
                 </tr>
             {% endfor %}
             </tbody>

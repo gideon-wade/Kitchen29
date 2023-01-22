@@ -4,13 +4,13 @@
 <title>Add receipt</title>
 <div>
     <h1 style="text-align:center;margin:60px">Add a receipt</h1>
-    <form style="width:75%;margin-left:240px" action method="post">
+    <form style="width:75%;margin-left:240px" action method="POST">
         <div class="form-group">
-            <label for="formGroupExampleInput">Amount (in dkk)</label>
+            <label for="formGroupExampleInput">Amount (in dkk)*</label>
             <input type="text" name="amount" class="form-control" id="formGroupExampleInput" placeholder="i.e 32.65">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Resident</label>
+            <label for="exampleFormControlSelect1">Resident*</label>
             <select name="resident" class="form-control" id="exampleFormControlSelect1">
 
                 {% for resident in residents %}
@@ -20,11 +20,11 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="receipt_picture">Insert picture of receipt</label>
+            <label for="receipt_picture">Insert picture of receipt*</label>
             <input name="receipt_picture" type="file" class="form-control-file" id="receipt_picture">
         </div>
         <div class="form-group">
-            <label for="optional_receipt_comment">Optional comment</label>
+            <label for="optional_receipt_comment">(Optional) comment</label>
             <textarea class="form-control" id="optional_receipt_comment" rows="3"></textarea>
         </div>
         <div>

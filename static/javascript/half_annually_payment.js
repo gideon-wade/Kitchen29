@@ -14,4 +14,5 @@ for (let i = 1; i < numResidents; i++) {
     } else if(currentBalance < 0){
         document.getElementById(currentId).style.color="red"
     }
+    console.log("HELLOO POOPER")
 }

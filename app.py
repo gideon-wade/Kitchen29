@@ -55,20 +55,18 @@ def add_receipt():
         amount = request.form["amount"]
         resident = request.form["resident"]
         receipt_picture = request.form["receipt_picture"]
-        try:
-            if amount is not "" and resident is not "" and receipt_picture is not "":
-                print("We're in if*2 --------------------")
-                print("amount: " + amount)
-                print("resident: " + resident)
-                print("receipt_picture: " + receipt_picture)
-                print("We're in if*2 --------------------")
-                return redirect(
-                    url_for("update_receipts",
-                            amount=amount,
-                            resident=resident,
-                            receipt_picture=receipt_picture))
-        except:
-            print("POST FAILED")
+        if amount is not "" and resident is not "" and receipt_picture is not "":
+            receipt = Receipts(Receipt_ID=Receipts.query.count() + 1,
+                               Receipts_Resident_Number=resident,
+                               Amount=amount,
+                               Date_Uploaded=datetime.now().date(),
+                               Approved=False)
+            db.session.add(receipt)
+            db.session.commit()
+            return redirect(url_for("update_receipts"))
+        else:
+            #POST FAILED
+            return render_template("add_receipt.html", residents=residents)
     else:
         return render_template("add_receipt.html", residents=residents)
 
@@ -88,11 +86,8 @@ def receipts():
 
 
 @app.route("/receipts")
-def update_receipts(amount, resident, receipt_picture):
-    return render_template("receipts.html",
-                           amount=amount,
-                           resident=resident,
-                           receipt_picture=receipt_picture)
+def update_receipts():
+    return render_template("receipts.html")
 
 
 @app.route("/login")
