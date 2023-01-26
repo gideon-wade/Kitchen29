@@ -12,7 +12,9 @@
                 <th>Receipt's Resident Number</th>
                 <th>Amount</th>
                 <th>Date Uploaded</th>
+                <th>Resident's Optional Comment</th>
                 <th>Approved</th>
+                <th class="admin_comment">Admin's comment</th>
             </tr>
             </thead>
             <tbody>
@@ -21,11 +23,23 @@
                     <td>{{ receipt.Receipts_Resident_Number }}</td>
                     <td>{{ receipt.Amount }}</td>
                     <td>{{ receipt.Date_Uploaded }}</td>
+                    <td>{{ receipt.Residents_Optional_Comment }}</td>
                     <label>
                         <td class="receipt-label">
-                            <input type="checkbox"  id="RECEIPTID{{ loop.index }}"{% if receipt.Approved %} checked {% endif %} disabled>
+                            <input type="checkbox"  id="RECEIPTID{{ loop.index }}" {% if receipt.Approved %} checked {% endif %}>
                         </td>
                     </label>
+                    <td class="admin_comment">
+                        {% if session['role'] == 'admin' or session['role'] == 'dev' %}
+                            <form method="POST" action="{{ url_for('routes.update_admin_comment') }}">
+                                <input type="hidden" name="receipt_id" value="{{ receipt.Receipt_ID }}">
+                                <input type="text" name="admin_comment" value="{{ receipt.Admins_Optional_Comment }}">
+                                <input type="submit" value="Update Comment">
+                            </form>
+                        {% else %}
+                            {{ receipt.Admins_Optional_Comment }}
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

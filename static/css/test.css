@@ -18,14 +18,12 @@ body {
     margin-top: -85px;
 }
 
-
-
 .col-lg-header{
     font-size:35px;
     margin-bottom: 10px;
 }
 
- li:hover {
+ li.nav-item:hover {
     background-color: #25569b;
     border-radius: 5px;
 }
@@ -45,5 +43,9 @@ body {
      height: 20px;
      position: relative;
      width: 20px;
+ }
+
+ th.admin_comment, td.admin_comment {
+     max-width: 150px;
  }
 
